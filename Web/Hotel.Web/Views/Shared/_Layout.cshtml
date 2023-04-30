@@ -1,0 +1,151 @@
+﻿@using Hotel.Common
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/gijgo.css">
+    <link rel="stylesheet" href="~/assets/css/slicknav.css">
+    <link rel="stylesheet" href="~/assets/css/animate.min.css">
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="~/assets/css/slick.css">
+    <link rel="stylesheet" href="~/assets/css/nice-select.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+</head>
+<body>
+ 
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <strong>Хотел</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-area header-sticky">
+        <div class="main-header ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-7 col-lg-7">
+                        <!-- main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="#section1">Начало</a></li>
+                                    <li><a href="#section3">За нас</a></li>
+                                    <li><a href="#section4">Стаи</a></li>
+                                    <li><a href="#section5">Услуги</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2">
+                        <!-- header-btn -->
+                        <div class="header-btn">
+                            <a href="#section2" class="btn btn1 d-none d-lg-block ">Резервирай сега</a>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+    </header>
+    
+
+            @this.RenderBody()
+
+        <script src="https://qmixi.github.io/slide-nav/dist/slideNav.js"></script>
+        <script>
+        window.slide = new SlideNav();
+        </script>
+    <script src="~/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="~/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="~/assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/slick.min.js"></script>
+    <!-- Date Picker -->
+    <script src="~/assets/js/gijgo.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="~/assets/js/wow.min.js"></script>
+    <script src="~/assets/js/animated.headline.js"></script>
+    <script src="~/assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="~/assets/js/jquery.scrollUp.min.js"></script>
+    <script src="~/assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/assets/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="~/assets/js/contact.js"></script>
+    <script src="~/assets/js/jquery.form.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/mail-script.js"></script>
+    <script src="~/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        function validateDates() {
+            let x = document.getElementById("CheckIn").value;
+            let y = document.getElementById("CheckOut").value;
+            if (y < x || x === y) {
+                alert("Датата за настаняване не може да бъде след датата за oсвобождаване");
+                return false;
+            }
+
+        }
+
+
+        var room = document.getElementById("select1");
+        var roomsCount = document.getElementById("select3");
+        var niceSelect = document.getElementsByClassName("list")[1];
+        var result = "";
+        async function start(roomId) {
+            var response = await fetch("http://diplomenHotel.somee.com/Home/GetCount?roomId=" + roomId);
+            var availableRooms = await response.json();
+            roomsCount.innerHTML = " <option selected>Choose Room Count</option>";
+                for (let i = 1; i <= availableRooms; i++) {
+                    roomsCount.innerHTML += "<option value=" + i + ">" + i + "</option>";
+                }
+             
+               
+                
+                
+        }
+        function getAvailable() {
+            var value = room.value;
+            start(value);
+            roomsCount.value.selected = 0;
+        }
+    </script>
+    @await this.RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

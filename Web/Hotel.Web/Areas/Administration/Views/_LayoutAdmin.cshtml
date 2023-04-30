@@ -1,0 +1,42 @@
+﻿<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+<style>
+    .nav-link {
+        color: wheat;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline" style="color:grey ">Администрация</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li>
+                        <a class="nav-link px-0" asp-controller="Dashboard" asp-action="Index">Табло</a>
+                    <li>
+                        <a class="nav-link px-0" asp-controller="Rooms" asp-action="Index">Стаи</a>
+                    </li>
+                    <li>
+                      <a class="nav-link px-0" asp-controller="Bookings" asp-action="Index">Резервации</a>
+                    </li>
+                 <li>
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/")" method="post">
+                            <button type="submit" class="nav-link px-0">Logout</button>
+                        </form>
+                 </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col py-3">
+            @this.RenderBody()
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+<script src="~/js/site.min.js" asp-append-version="true"></script>
+@await this.RenderSectionAsync("Scripts", required: false)

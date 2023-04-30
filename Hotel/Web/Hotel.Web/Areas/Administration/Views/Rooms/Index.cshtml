@@ -1,0 +1,31 @@
+﻿@model IEnumerable<RoomModel>
+<h2>Стаи</h2>
+<a class="btn btn-primary" asp-action="Create">Създай</a>
+<table class="table table-dark text-center">
+	<thead>
+	<tr>
+		<th scope="col">#</th>
+				<th scope="col">Име</th>
+		<th scope="col">Тип</th>
+		<th scope="col">Цена</th>
+			<th scope="col">Свободни стаи</th>
+			<th scope="col">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	@foreach (var room in this.Model)
+	{
+		<tr>
+				<th>@room.Id</th>
+				<th>@room.Name</th>
+				<th>@room.Type</th>
+				<th>@room.Price</th>
+				<th>@room.NumberAvailable</th>
+			<th>
+					<a class="btn btn-warning" asp-action="Edit" asp-route-id="@room.Id">Редактирай</a>
+					<a class="btn btn-danger" asp-action="Delete" asp-route-id="@room.Id">Изтрий</a>
+				</th>
+		</tr>
+	}
+	</tbody>
+		</table>

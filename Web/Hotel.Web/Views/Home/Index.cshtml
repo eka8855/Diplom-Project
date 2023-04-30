@@ -1,0 +1,315 @@
+﻿@model HomeViewModel
+
+@{
+
+    var roomsOptions = this.Model.RoomsOptions.Select(x => new SelectListItem(x.Value, x.Key));
+}
+<main>
+
+    <!-- slider Area Start-->
+    <div class="slider-area ">
+        <!-- Mobile Menu -->
+        <div class="slider-active dot-style" id="section1">
+            <div class="single-slider  hero-overly slider-height d-flex align-items-center" data-background="assets/img/hero/h1_hero.jpg">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-xl-9">
+                            <div class="h1-slider-caption">
+                                <h1 data-animation="fadeInUp" data-delay=".4s">НАСТАНЯВАНЕ</h1>
+                                <h3 data-animation="fadeInDown" data-delay=".4s">УЮТ И КОМФОРТ</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slider  hero-overly slider-height d-flex align-items-center" data-background="assets/img/hero/h1_hero.jpg">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-xl-9">
+                            <div class="h1-slider-caption">
+                                <h1 data-animation="fadeInUp" data-delay=".4s">НАСТАНЯВАНЕ</h1>
+                                <h3 data-animation="fadeInDown" data-delay=".4s">УЮТ И КОМФОРТ</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slider  hero-overly slider-height d-flex align-items-center" data-background="assets/img/hero/h1_hero.jpg">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-xl-9">
+                            <div class="h1-slider-caption">
+                                <h1 data-animation="fadeInUp" data-delay=".4s">НАСТАНЯВАНЕ</h1>
+                                <h3 data-animation="fadeInDown" data-delay=".4s">УЮТ И КОМФОРТ</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+    <!-- Booking Room Start-->
+    <div class="booking-area">
+        <div class="container">
+            <div class="row">
+               <style>
+                   .form-control{
+                        border-color: #dca73a;
+                        height:50px;
+                   }
+.form-control:focus {
+                        border-color: #dca73a;
+                        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #dca73a;
+}
+</style>
+                <div class="col-12" >
+                    <form method="post" onsubmit="return validateDates()" asp-action="BookARoom">
+                        <div class="booking-wrap d-flex justify-content-between align-items-center">
+
+                               <div class="single-select-box mb-30">
+                                <div class="boking-tittle">
+                                    <span>Име:</span>
+                                </div>
+                                <div class="boking-datepicker">
+                                    <input asp-for="CustomerName" type="text" class="form-control" placeholder="Въведете името си" />
+                                </div>
+                                <span asp-validation-for="CustomerName" class="text-danger"></span>
+                            </div>
+                            <div class="single-select-box mb-30">
+                                <div class="boking-tittle">
+                                    <span>Имейл:</span>
+                                </div>
+                                <div class="boking-datepicker">
+                                    <input asp-for="CustomerEmail" type="text" class="form-control" placeholder="Въведете имейлът си" />
+                                </div>
+                                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                            </div>
+                                 <div class="single-select-box mb-30">
+                                <div class="boking-tittle">
+                                    <span>Телефон:</span>
+                                </div>
+                                <div class="boking-datepicker">
+                                    <input asp-for="CustomerPhone" type="text" class="form-control" placeholder="Въведете телефонът си"/>
+                                </div>
+                                <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                            </div>
+                            <div class="single-select-box mb-30">
+                                <div class="boking-tittle">
+                                    <span>Стая:</span>
+                                </div>
+                                <div class="select-this">
+                                    <div class="select-itms">
+                                        <select onchange="getAvailable()" asp-for="RoomId" asp-items="roomsOptions" class="form-control" id="select1">
+                                            <option selected>Изберете стая</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="RoomId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="single-select-box mb-30">
+                                <div class="boking-tittle">
+                                    <span>Брой стаи:</span>
+                                </div>
+                                <div class="select-this" id="availableRooms">
+                                        <div class="select-itms">
+                                        <select class="form-control" id="select3" asp-for="RoomsCount">
+                                            <option selected>Изберете брой</option>
+                                        </select>
+                                        </div>
+                                    <span asp-validation-for="RoomsCount" class="text-danger"></span>
+                                </div>
+                            </div>
+                           
+                            <!-- select in date -->
+                            <div class="single-select-box mb-30">
+                                <!-- select out date -->
+                                <div class="boking-tittle">
+                                    <span>Настаняване:</span>
+                                </div>
+                                <div class="boking-datepicker">
+                                    <input asp-for="CheckIn" class="form-control" value="datetime-local" />
+                                </div>
+                                <span asp-validation-for="CheckIn" class="text-danger"></span>
+                            </div>
+                            <!-- Single Select Box -->
+                            <div class="single-select-box mb-30">
+                                <!-- select out date -->
+                                <div class="boking-tittle">
+                                    <span>Освобождаване:</span>
+                                </div>
+                                <div class="boking-datepicker">
+                                    <input asp-for="CheckOut" class="form-control" value="datetime-local" />
+                                </div>
+                                <span asp-validation-for="CheckOut" class="text-danger"></span>
+                            </div>
+                            <!-- Single Select Box -->
+                           
+                            <!-- Single Select Box -->
+                            
+                            <!-- Single Select Box -->
+                           
+
+                            <!-- Single Select Box -->
+                            <div class="single-select-box pt-45 mb-30">
+                                <input type="submit" class="btn select-btn" value="Резервирай">
+                            </div>
+
+
+                        </div>
+                    </form>
+                    <div id="section2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Booking Room End-->
+    <!-- Make customer Start-->
+    <section class="make-customer-area customar-padding fix" id="section3">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="customer-img mb-120">
+                        <img src="assets/img/customer/customar1.png" class="customar-img1" alt="">
+                        <img src="assets/img/customer/customar2.png" class="customar-img2" alt="">
+                        <div class="service-experience heartbeat">
+                            <h3>25 Години <br>Опит</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-xl-4 col-lg-4">
+                    <div class="customer-caption">
+                        <span>За нас</span>
+                        <h2>Добре дошли в нашият хотел</h2>
+                        <div class="caption-details">
+                            <p>
+                                Добре дошли при нас, там където необятната морска шир и топлият летен
+                                бриз докосват сетивата Комплексът е разположен сред красиви алеи от зеленина, екзотични палми и маслинови дръвчета
+                            .</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Make customer End-->
+    <!-- Room Start -->
+    <section class="room-area" id="section4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <!--font-back-tittle  -->
+                    <div class="font-back-tittle mb-45">
+                        <div class="archivment-front">
+                            <h3>Нашите стаи</h3>
+                        </div>
+                        <h3 class="archivment-back">Нашите стаи</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+               
+                    <!-- Single Room -->
+                    @foreach (var room in this.Model.roomsModel)
+                    {
+                    <div class="col-xl-4 col-lg-6 col-md-6">
+                        <div class="single-room mb-50">
+                        <div class="room-img">
+                            <a><img src="/images/@room.ImageName" alt=""></a>
+                        </div>
+                        <div class="room-caption">
+                            <h3><a>@room.Type @room.Name</a></h3>
+                            <div class="per-night">
+                                <span>@room.Price лв. <span>/ на вечер</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    }
+                    
+               
+               
+            </div>
+        </div>
+
+    </section>
+    <!-- Dining Start -->
+    <div class="dining-area dining-padding-top" id="section5">
+        <!-- Single Left img -->
+        <div class="single-dining-area left-img">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-lg-8 col-md-8">
+                        <div class="dining-caption">
+                            <span>Ресторант</span>
+                            <h3>Нашият ресторант</h3>
+                            <p>Елегантен класически ресторант с нежни материи, естествен камък и богата орнаментика, с много светлина и неповторима морска панорама. Можете да се насладите на умело подбрано меню, класни питиета и свежи коктейли в лятната шатра на ресторанта, както и в зоната около басейна.Отседналите в Superior и Delux стаи могат да се възползват от него безплатно.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- single Right img -->
+        <div class="single-dining-area right-img">
+            <div class="container">
+                <div class="row justify-content-start">
+                    <div class="col-lg-8 col-md-8">
+                        <div class="dining-caption text-right">
+                            <span>Басейн</span>
+                            <h3>Нашият басейн</h3>
+                            <p>На разположение на гостите е 50 метров открит басейн където можете да поплувате, да разпуснете и натрупате слънчев загар на зоната с шезлонги и чадъри.Вашите деца могат да се забавляват в детския басейн.Отседналите в Superior и Delux стаи могат да се възползват от него безплатно.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </main>
+     <footer>
+       <!-- Footer Start-->
+       <div class="footer-area black-bg footer-padding">
+           <div class="container">
+               <div class="row d-flex justify-content-between">
+                   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                      <div class="single-footer-caption mb-30" style="margin-top: 60px">
+                         
+                        <a class="btn btn-secondary" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Login</a>
+                        <div class="footer-pera">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script></a>
+                       
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                       <div class="single-footer-caption mb-30">
+                           <div class="footer-tittle">
+                               <h4>Контакти</h4>
+                               <ul>
+                                   <li><a href="#">Phone: 345 5667 889</a></li>
+                                   <li><a href="#">Skype: Hotel</a></li>
+                                   <li><a href="#">reservations@hotel.com</a></li>
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-xl-3 col-lg-3 col-md-4  col-sm-5">
+                       <div class="single-footer-caption mb-30">
+                           <div class="footer-tittle">
+                               <h4>Нашата локация</h4>
+                               <ul>
+                                   <li><a href="#">198 West 21th Street,</a></li>
+                                   <li><a href="#">Suite 721 New York NY 10016</a></li>
+                               </ul>
+                               <!-- Form -->
+                               
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- Footer End-->
+   </footer>
